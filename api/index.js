@@ -30,6 +30,17 @@ app.listen(3000, () => {
   console.log('Server is running on port 3000!');
 });
 
+app.get("/health", async (req, res) => {
+  res.send({ message: "Health OK!" });
+});
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
